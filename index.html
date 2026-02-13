@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMA Medical Reports</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
+    <script src="assets/js/templates.js"></script>
+    <script src="assets/js/config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Selection Screen -->
+        <div id="selection-screen" class="screen active">
+            <h1>اختار نوع التقرير</h1>
+            <div class="card-container">
+                <div class="card" onclick="selectTemplate('initial')">
+                    <h2>Initial Report</h2>
+                    <p>تقرير مبدئي</p>
+                </div>
+                <div class="card" onclick="selectTemplate('final')">
+                    <h2>Final Report</h2>
+                    <p>تقرير نهائي</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Screen -->
+        <div id="form-screen" class="screen">
+            <h1 id="form-title">بيانات التقرير</h1>
+            <form id="data-form">
+                <div class="form-group">
+                    <label for="patientname">اسم المريض (Patient Name)</label>
+                    <input type="text" id="patientname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="patientid">رقم المريض (Patient ID)</label>
+                    <input type="text" id="patientid" required>
+                </div>
+
+                <div class="form-group" id="doctor-group">
+                    <label for="doctorname">اسم الطبيب (Doctor Name)</label>
+                    <input type="text" id="doctorname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactnumber">رقم التواصل (Contact Number)</label>
+                    <input type="tel" id="contactnumber" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="referraldate">تاريخ التحويل (Referral Date)</label>
+                    <input type="date" id="referraldate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="referringhospital">المستشفى المحول منها (Referring Hospital)</label>
+                    <input type="text" id="referringhospital" required>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="btn-secondary" onclick="goBack()">رجوع</button>
+                    <button type="submit" class="btn-primary">تحميل PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
