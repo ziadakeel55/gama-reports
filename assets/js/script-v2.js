@@ -2,16 +2,7 @@
 const { PDFDocument, StandardFonts, rgb } = PDFLib;
 
 // Load Config from global variable (loaded via config.js)
-// Load Config from global variable (loaded via config.js)
-let selectedReportType = 'initial'; // Default
-
 window.onload = function () {
-    if (typeof APP_CONFIG !== 'undefined') {
-        if (document.getElementById('contactnumber')) document.getElementById('contactnumber').value = APP_CONFIG.defaultContactNumber || '';
-    } else {
-        console.error("APP_CONFIG is not defined. Ensure config.js is loaded.");
-    }
-
     // Set default date to today
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -22,27 +13,7 @@ window.onload = function () {
     if (document.getElementById('referraldate')) {
         document.getElementById('referraldate').value = formattedDate;
     }
-
-    // Add Form Submit Listener for V1
-    const form = document.getElementById('data-form');
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            handleDownload(selectedReportType);
-        });
-    }
 };
-
-function selectTemplate(type) {
-    selectedReportType = type;
-    document.getElementById('selection-screen').classList.remove('active');
-    document.getElementById('form-screen').classList.add('active');
-}
-
-function goBack() {
-    document.getElementById('form-screen').classList.remove('active');
-    document.getElementById('selection-screen').classList.add('active');
-}
 
 function handleDownload(type) {
     const doctorInput = document.getElementById('doctorname');
@@ -72,7 +43,7 @@ function showWarning() {
 
 function closeWarning() {
     document.getElementById('warning-modal').style.display = 'none';
-    document.getElementById('doctorname').focus();
+    if (document.getElementById('doctorname')) document.getElementById('doctorname').focus();
 }
 
 async function generatePDF(type) {
@@ -101,13 +72,15 @@ async function generatePDF(type) {
             formattedDate = `${dd}-${mm}-${yyyy}`;
         }
 
+        // Hardcoded Contact Info as requested
+        const contactPerson = "Dr-Abdullatif Algushy";
+        const contactNumber = "966595409337";
+
         const inputs = {
             patientname: document.getElementById('patientname').value,
             patientid: document.getElementById('patientid').value,
-            doctorname: document.getElementById('doctorname').value,
-            contactnumber: document.getElementById('consultantname')
-                ? `${document.getElementById('consultantname').value} | ${document.getElementById('contactnumber').value}`
-                : document.getElementById('contactnumber').value,
+            doctorname: document.getElementById('doctorname') ? document.getElementById('doctorname').value : '',
+            contactnumber: `${contactPerson} | ${contactNumber}`,
             referraldate: formattedDate,
             referringhospital: document.getElementById('referringhospital').value
         };

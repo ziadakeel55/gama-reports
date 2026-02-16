@@ -5,34 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAMA Medical Reports</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style-v2.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
-    <script src="assets/js/templates.js"></script>
-    <script src="assets/js/config.js"></script>
+    <script src="assets/js/templates-v2.js"></script>
+    <script src="assets/js/config-v2.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="container">
-        <!-- Selection Screen -->
-        <div id="selection-screen" class="screen active">
-            <h1>اختار نوع التقرير</h1>
-            <div class="card-container">
-                <div class="card" onclick="selectTemplate('initial')">
-                    <h2>Initial Report</h2>
-                    <p>تقرير مبدئي</p>
-                </div>
-                <div class="card" onclick="selectTemplate('final')">
-                    <h2>Final Report</h2>
-                    <p>تقرير نهائي</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Form Screen -->
-        <div id="form-screen" class="screen">
+        <!-- Form Screen (Active by default) -->
+        <div id="form-screen" class="screen active">
             <h1 id="form-title">بيانات التقرير</h1>
             <form id="data-form">
                 <div class="form-group">
@@ -47,13 +32,10 @@
 
                 <div class="form-group" id="doctor-group">
                     <label for="doctorname">اسم الطبيب (Doctor Name)</label>
-                    <input type="text" id="doctorname" required>
+                    <input type="text" id="doctorname">
                 </div>
 
-                <div class="form-group">
-                    <label for="contactnumber">رقم التواصل (Contact Number)</label>
-                    <input type="tel" id="contactnumber" required>
-                </div>
+                <!-- Contact info removed as per request (Hardcoded in JS) -->
 
                 <div class="form-group">
                     <label for="referraldate">تاريخ التحويل (Referral Date)</label>
@@ -66,14 +48,29 @@
                 </div>
 
                 <div class="buttons">
-                    <button type="button" class="btn-secondary" onclick="goBack()">رجوع</button>
-                    <button type="submit" class="btn-primary">تحميل PDF</button>
+                    <button type="button" class="btn-secondary" onclick="handleDownload('initial')">Initial Report
+                        (مبدئي)</button>
+                    <button type="button" class="btn-primary" onclick="handleDownload('final')">Final Report
+                        (نهائي)</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <!-- Warning Modal for V2 script if needed -->
+    <div id="warning-modal"
+        style="display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+        <div
+            style="background-color:#fefefe; margin:15% auto; padding:20px; border:1px solid #888; width:80%; max-width:400px; text-align:center; border-radius:10px;">
+            <h2>⚠️ تنبيه هام جداً ⚠️</h2>
+            <p>لا يمكن تحميل التقرير النهائي بدون اسم الطبيب!</p>
+            <button onclick="closeWarning()"
+                style="margin-top:20px; background:var(--accent-color); color:white; padding:10px 20px;">فهمت</button>
+        </div>
+    </div>
+
+    <script src="assets/js/script-v2.js"></script>
+    <!-- Removed particles.js as it's not part of V1 style -->
 </body>
 
 </html>

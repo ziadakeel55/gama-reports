@@ -65,14 +65,14 @@ h1 {
     width: 300px;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     border: 2px solid transparent;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     border-color: var(--accent-color);
 }
 
@@ -144,17 +144,24 @@ button {
 }
 
 .btn-secondary {
-    background-color: #ecf0f1;
-    color: var(--primary-color);
+    background-color: #27ae60;
+    color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #bdc3c7;
+    background-color: #2ecc71;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 600px) {
@@ -162,7 +169,7 @@ button {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .card {
         width: 100%;
     }
