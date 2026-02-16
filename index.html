@@ -14,25 +14,11 @@
 </head>
 
 <body>
+    <canvas id="bg-canvas"></canvas>
 
     <div class="container">
-        <!-- Selection Screen -->
-        <div id="selection-screen" class="screen active">
-            <h1>اختار نوع التقرير</h1>
-            <div class="card-container">
-                <div class="card" onclick="selectTemplate('initial')">
-                    <h2>Initial Report</h2>
-                    <p>تقرير مبدئي</p>
-                </div>
-                <div class="card" onclick="selectTemplate('final')">
-                    <h2>Final Report</h2>
-                    <p>تقرير نهائي</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Form Screen -->
-        <div id="form-screen" class="screen">
+        <div id="form-screen" class="screen active">
             <h1 id="form-title">بيانات التقرير</h1>
             <form id="data-form">
                 <div class="form-group">
@@ -47,7 +33,12 @@
 
                 <div class="form-group" id="doctor-group">
                     <label for="doctorname">اسم الطبيب (Doctor Name)</label>
-                    <input type="text" id="doctorname" required>
+                    <input type="text" id="doctorname">
+                </div>
+
+                <div class="form-group">
+                    <label for="consultantname">اسم الاستشاري (Consultant Name)</label>
+                    <input type="text" id="consultantname" value="Dr-Abdullatif Algushy">
                 </div>
 
                 <div class="form-group">
@@ -66,14 +57,32 @@
                 </div>
 
                 <div class="buttons">
-                    <button type="button" class="btn-secondary" onclick="goBack()">رجوع</button>
-                    <button type="submit" class="btn-primary">تحميل PDF</button>
+                    <button type="button" class="btn-secondary" onclick="handleDownload('initial')">Initial Report
+                        (تحميل مبدئي)</button>
+                    <button type="button" class="btn-primary" onclick="handleDownload('final')">Final Report (تحميل
+                        نهائي)</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <div id="warning-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ تنبيه هام جداً ⚠️</h2>
+            </div>
+            <div class="modal-body">
+                <p>لا يمكن تحميل التقرير النهائي بدون اسم الطبيب!</p>
+                <p lang="en">Cannot download Final Report without Doctor Name!</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeWarning()">فهمت (Understand)</button>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/particles.js"></script>
 </body>
 
 </html>
