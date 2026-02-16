@@ -1,4 +1,10 @@
 @echo off
+echo Checking for existing git processes...
+if exist ".git/index.lock" (
+    echo Removing stuck lock file...
+    del ".git/index.lock"
+)
+
 echo Initializing Git...
 git init
 
@@ -15,6 +21,12 @@ git remote set-url origin https://github.com/ziadakeel55/gama-reports.git
 
 echo Pushing to GitHub...
 git push -u origin main
+
+if %errorlevel% neq 0 (
+    echo.
+    echo ERROR: Could not push to GitHub. 
+    echo Please check your internet connection and try again.
+)
 
 echo Done!
 pause
