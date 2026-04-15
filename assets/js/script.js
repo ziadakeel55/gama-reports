@@ -35,6 +35,17 @@ window.onload = function () {
 
 function selectTemplate(type) {
     selectedReportType = type;
+    
+    // Toggle company field visibility based on type
+    const companyGroup = document.getElementById('company-group');
+    if (companyGroup) {
+        if (type === 'initial') {
+            companyGroup.style.display = 'none';
+        } else {
+            companyGroup.style.display = 'block';
+        }
+    }
+    
     document.getElementById('selection-screen').classList.remove('active');
     document.getElementById('form-screen').classList.add('active');
 }
