@@ -83,7 +83,7 @@ async function generatePDF(type) {
             contactnumber: `${contactPerson} | ${contactNumber}`,
             referraldate: formattedDate,
             referringhospital: document.getElementById('referringhospital').value,
-            company: document.getElementById('company') ? document.getElementById('company').value : 'Insurance company'
+            company: document.getElementById('company') ? document.getElementById('company').value : ''
         };
 
         try {
