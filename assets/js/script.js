@@ -109,7 +109,8 @@ async function generatePDF(type) {
                 ? `${document.getElementById('consultantname').value} | ${document.getElementById('contactnumber').value}`
                 : document.getElementById('contactnumber').value,
             referraldate: formattedDate,
-            referringhospital: document.getElementById('referringhospital').value
+            referringhospital: document.getElementById('referringhospital').value,
+            company: document.getElementById('company') ? document.getElementById('company').value : 'Insurance company'
         };
 
         try {
@@ -121,17 +122,33 @@ async function generatePDF(type) {
                 'referringhospital'
             ];
 
-            // doctorname is only present in the Final report
+            // doctorname and company are only present in the Final report
             if (type === 'final') {
                 fields.push('doctorname');
+                fields.push('company');
             }
 
             fields.forEach(fieldName => {
-                const field = form.getTextField(fieldName);
-                if (field) {
-                    field.setText(inputs[fieldName]);
-                } else {
-                    console.warn(`Field ${fieldName} not found in PDF form.`);
+                try {
+                    // Try to get exactly as named
+                    const field = form.getTextField(fieldName);
+                    if (field) {
+                        field.setText(inputs[fieldName]);
+                    }
+                } catch (e) {
+                    console.warn(`Field ${fieldName} not found in PDF form. Trying case-insensitive search...`);
+                    // Fallback: Case-insensitive search
+                    try {
+                        const allFields = form.getFields();
+                        const matchingField = allFields.find(f => f.getName().toLowerCase().trim() === fieldName.toLowerCase().trim());
+                        if (matchingField) {
+                            form.getTextField(matchingField.getName()).setText(inputs[fieldName]);
+                        } else {
+                            alert(`لم يتم العثور على حقل بالاسم "${fieldName}" في ملف الـ PDF الحالي. \nيرجى التأكد من تحويل ملف الـ PDF الجديد (الذي يحتوي على الحقل) إلى Base64 وتحديث ملف templates.js.`);
+                        }
+                    } catch (fallbackError) {
+                        console.error(`Fallback failed for field ${fieldName}:`, fallbackError);
+                    }
                 }
             });
 
