@@ -1,7 +1,0 @@
-{patientname}
-{patientid}
-{doctorname}
-{company}
-{contactnumber}
-{referraldate}
-{referringhospital}
